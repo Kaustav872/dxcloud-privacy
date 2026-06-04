@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>dXcloud Privacy Policy</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6; max-width: 760px; margin: 0 auto; padding: 2rem 1.25rem 4rem;
+    color: #1a1a1a; background: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    body { color: #e6e6e6; background: #141414; }
+    code { background: #2a2a2a; }
+    blockquote { background: #1e1e1e; border-left-color: #555; }
+    a { color: #6ab0ff; }
+  }
+  h1 { font-size: 1.8rem; line-height: 1.25; margin: 0 0 .25rem; }
+  h2 { font-size: 1.3rem; margin: 2rem 0 .5rem; padding-top: .5rem; border-top: 1px solid rgba(128,128,128,.25); }
+  h3 { font-size: 1.08rem; margin: 1.4rem 0 .4rem; }
+  p { margin: .6rem 0; }
+  ul { margin: .5rem 0 .9rem; padding-left: 1.4rem; }
+  li { margin: .35rem 0; }
+  code { background: #f0f0f0; padding: .1em .35em; border-radius: 4px; font-size: .9em; }
+  blockquote { margin: 1rem 0; padding: .6rem 1rem; background: #f6f6f6; border-left: 4px solid #bbb; border-radius: 4px; }
+  blockquote p { margin: .3rem 0; }
+  strong { font-weight: 600; }
+</style>
+</head>
+<body>
+<h1>dXcloud Privacy Policy</h1>
+<p><strong>Last updated:</strong> 3 June 2026</p>
+<p>dXcloud ("the app", "we", "us") is a peer-to-peer encrypted backup application for Android. This policy explains what data the app handles, why, where it goes, and the choices you have. Plain summary first, detail below.</p>
+<blockquote>
+<p><strong>Not legal advice.</strong> This document describes the app's actual data</p>
+<p>practices in good faith. It is not legal advice. If you operate or</p>
+<p>redistribute dXcloud, review it with a qualified professional for your</p>
+<p>jurisdiction.</p>
+</blockquote>
+<h2>The short version</h2>
+<ul>
+<li>Your <strong>file contents are end-to-end encrypted</strong> on your device before they ever leave it. They are encrypted with AES-256-GCM using a key derived from your secret recovery phrase. Nobody else - not other users who store your data, not the operators of the coordination server, not us - can read your files. We never receive your encryption key or your recovery phrase.</li>
+<li>The app is <strong>peer-to-peer</strong>: your encrypted file pieces are stored on other users' devices, and you store pieces of theirs. A lightweight coordination ("rendezvous") server only helps devices find and connect to each other; it does not store your files.</li>
+<li>We do <strong>not</strong> sell your data, show ads, or use third-party advertising or analytics trackers.</li>
+<li>You can delete your data, and you control what you back up.</li>
+</ul>
+<h2>What the app handles, and why</h2>
+<h3>1. Your identity (a public key)</h3>
+<p>When you first set up the app, it generates a 24-word secret recovery phrase (a BIP39 mnemonic) on your device. From it, the app deterministically derives a cryptographic key pair. Your <strong>public key</strong> acts as your identity on the network so other devices can route data to you and verify messages you send.</p>
+<ul>
+<li>Your <strong>private key and recovery phrase never leave your device</strong> and are never transmitted to the coordination server, to other users, or to us.</li>
+<li>Your public key is shared with peers and the coordination server purely for routing and message verification. It is not linked to your name, email, or phone number by the app.</li>
+<li><strong>If you lose your recovery phrase, your encrypted data cannot be recovered.</strong> We cannot recover it for you, because we never have your key.</li>
+</ul>
+<h3>2. Your files (end-to-end encrypted, stored on peers)</h3>
+<p>When you back up a file:</p>
+<ul>
+<li>It is <strong>encrypted on your device</strong> with AES-256-GCM before leaving it.</li>
+<li>The encrypted file is split into pieces (using Reed-Solomon erasure coding) and copies of those pieces are stored on a small number of other users' devices ("holders") so your data survives if some devices go offline.</li>
+<li>Holders store only <strong>encrypted, content-addressed pieces</strong>. A holder cannot read the contents, the filename, or the file type of what they store.</li>
+<li>To back up files you select, the app reads them from your device. On Android it uses the system file picker and, for media, the <code>READ_MEDIA_IMAGES</code> and <code>READ_MEDIA_VIDEO</code> permissions, so it can read the photos and videos you choose to back up. The app reads only what you select for backup or what it writes during a restore.</li>
+<li>Restored files are written to your device's Downloads area.</li>
+</ul>
+<p>We (the developers) do not operate storage for your files and do not receive your files. They live, encrypted, on the peer devices in the network.</p>
+<h3>3. The coordination (rendezvous) server</h3>
+<p>The app uses a coordination server to let devices discover and connect to one another. This server:</p>
+<ul>
+<li><strong>Relays signed messages</strong> between connected devices and maintains a short-lived list of which public keys are currently online, so peers can find each other.</li>
+<li><strong>Does not store your files</strong> and cannot read your file contents (they are encrypted end-to-end, and the server never receives your encryption key).</li>
+<li>Necessarily observes, while you are connected, your device's <strong>IP address</strong> (inherent to any internet connection) and your <strong>public key</strong>, in order to route messages to the right device. IP addresses are used for connectivity and may appear transiently in operational logs; they are not used to identify you personally by the app and are not sold or shared for advertising.</li>
+</ul>
+<p>When devices cannot connect directly (for example, behind certain network configurations), the app may relay the encrypted peer connection through a TURN server provided by Cloudflare. The TURN relay can observe connection metadata such as IP addresses, as any network relay does, but it carries only the encrypted peer-to-peer stream and cannot read your file contents. Cloudflare acts as a connectivity provider for this purpose and processes this data under its own terms.</p>
+<ul>
+<li>May keep a minimal index of which public keys hold which encrypted pieces, so that data can be located for recovery. This index references content identifiers and public keys, not file contents or personal identity.</li>
+</ul>
+<h3>4. Device and connectivity permissions</h3>
+<p>The app requests these Android permissions, each for a specific function:</p>
+<ul>
+<li><strong>Internet / network state / Wi-Fi state</strong> - to connect to peers and the coordination server, and to adapt to network changes.</li>
+<li><strong>Foreground service (data sync) + notifications</strong> - backup and restore run as a foreground service so transfers continue reliably while the app is in the background; Android requires a visible notification for this. The notification tells you the service is running.</li>
+<li><strong>Wake lock</strong> - to keep transfers from being interrupted while the device sleeps.</li>
+<li><strong>Ignore battery optimizations (optional, with your consent)</strong> - some device manufacturers aggressively stop background services, which can interrupt backups. The app may ask you to exempt it so syncing is reliable. This is optional and shown through the standard Android system prompt; you can decline or revoke it in system settings.</li>
+</ul>
+<h2>What we do NOT do</h2>
+<ul>
+<li>We do <strong>not</strong> sell or rent your data.</li>
+<li>We do <strong>not</strong> serve advertising or use third-party ad/analytics SDKs.</li>
+<li>We do <strong>not</strong> collect your name, email address, phone number, contacts, location, or device advertising identifier.</li>
+<li>We do <strong>not</strong> have the ability to read your backed-up file contents.</li>
+</ul>
+<h2>Data sharing</h2>
+<p>Your encrypted file pieces are shared with other users' devices ("holders") for the sole purpose of storing your backup, and they remain encrypted such that holders cannot read them. Beyond this peer storage and the routing performed by the coordination server, the app does not share your data with third parties. We do not transfer your data to advertisers or data brokers.</p>
+<h2>Data retention and deletion</h2>
+<ul>
+<li><strong>On your device:</strong> you can delete the app's data through Android's app settings, and uninstalling the app removes its local data and identity. Remember that without your recovery phrase, encrypted data held on peers cannot be recovered.</li>
+<li><strong>On peers:</strong> encrypted pieces are retained by holders to keep your backup durable. The network includes mechanisms to re-balance and reclaim storage over time. Because pieces are encrypted and content-addressed, a holder deleting them cannot expose your file contents.</li>
+<li><strong>Coordination server:</strong> online-presence information is short-lived. Any operational logs (e.g. transient connection records) are kept only as needed to run the service.</li>
+</ul>
+<h2>Security</h2>
+<ul>
+<li>File contents are encrypted with <strong>AES-256-GCM</strong> on your device before transmission (end-to-end encryption).</li>
+<li>Peer connections use encrypted transport (WebRTC DataChannels with DTLS), and messages between devices are cryptographically signed (Ed25519).</li>
+<li>The integrity of stored pieces is verified by cryptographic hash.</li>
+</ul>
+<p>No method of transmission or storage is perfectly secure, but the design goal is that your file contents are readable only by you.</p>
+<h2>Children's privacy</h2>
+<p>dXcloud is not directed to children under the age required by your local law (for example, under 13 in the United States), and we do not knowingly collect personal information from children.</p>
+<h2>Changes to this policy</h2>
+<p>We may update this policy as the app evolves. Material changes will be reflected here with an updated "Last updated" date.</p>
+<h2>Contact</h2>
+<p>For questions about this policy or your data, contact:</p>
+<p><strong>dxcloud001@gmail.com</strong></p>
+<p>dXcloud is an independent application developed by Developer@Kaustav, based in India.</p>
+</body>
+</html>
