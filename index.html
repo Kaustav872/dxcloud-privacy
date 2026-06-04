@@ -60,7 +60,7 @@
 <li>It is <strong>encrypted on your device</strong> with AES-256-GCM before leaving it.</li>
 <li>The encrypted file is split into pieces (using Reed-Solomon erasure coding) and copies of those pieces are stored on a small number of other users' devices ("holders") so your data survives if some devices go offline.</li>
 <li>Holders store only <strong>encrypted, content-addressed pieces</strong>. A holder cannot read the contents, the filename, or the file type of what they store.</li>
-<li>To back up files you select, the app reads them from your device. On Android it uses the system file picker and, for media, the <code>READ_MEDIA_IMAGES</code> and <code>READ_MEDIA_VIDEO</code> permissions, so it can read the photos and videos you choose to back up. The app reads only what you select for backup or what it writes during a restore.</li>
+<li>To back up files you select, the app uses Android's system file picker (the Storage Access Framework). This grants the app access only to the specific files you choose, of any type, and requires no broad storage or media permissions. The app reads only what you select for backup, or what it writes during a restore.</li>
 <li>Restored files are written to your device's Downloads area.</li>
 </ul>
 <p>We (the developers) do not operate storage for your files and do not receive your files. They live, encrypted, on the peer devices in the network.</p>
